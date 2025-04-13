@@ -3,8 +3,11 @@
 #include <string>
 #include "InputHandler.hpp"
 #include "OrderQueue.hpp"
+#include "Orderbook.hpp"
+
 int main(){
     OrderQueue queue;
+    OrderBook book;
     std::string input;
     int orderId = 1;
 
@@ -16,11 +19,14 @@ int main(){
         if (input.rfind("new", 0) == 0){
             Order order(0, OrderType::LIMIT, OrderSide::BUY, 0.0, 0);
             if (InputHandler::parse(input, order, orderId)){
-                queue.push(order);
-                std::cout << "Order Accepted: ID = "<<order.id<<", Side = " 
-                << (order.side == OrderSide::BUY ? "BUY" : "SELL") 
-                << ", Quantity = "<<order.quantity<<
-                ", Price = "<<order.price<<"\n";
+                // queue.push(order);
+                // std::cout << "Order Accepted: ID = "<<order.id<<", Side = " 
+                // << (order.side == OrderSide::BUY ? "BUY" : "SELL") 
+                // << ", Quantity = "<<order.quantity<<
+                // ", Price = "<<order.price<<"\n";
+
+                std::cout << " Adding Order ID: "<< order.id << "\n";
+                book.addOrder(order);
                 orderId++;
             }
             else{

@@ -1,3 +1,0 @@
-/home/vzal/Desktop/orderMatchingEngine/build/CMakeFiles/OrderMatchingEngine.dir
-/home/vzal/Desktop/orderMatchingEngine/build/CMakeFiles/edit_cache.dir
-/home/vzal/Desktop/orderMatchingEngine/build/CMakeFiles/rebuild_cache.dir
