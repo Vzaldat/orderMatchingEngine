@@ -17,19 +17,18 @@ enum class OrderSide{
 class Order{
     public:    
         int id;
-        static int global_id;
         OrderType type;
         OrderSide side;
         double price;
         int quantity;
         std::chrono::time_point<std::chrono::high_resolution_clock> timestamp;
 
-        Order(int id_,
+        Order(
             OrderType type_,
             OrderSide side_,
             double price_,
             int quantity_ )
-            : id(id_), type(type_), side(side_), price(price_), quantity(quantity_),
+            : type(type_), side(side_), price(price_), quantity(quantity_),
             timestamp(std::chrono::high_resolution_clock::now()){
                 id = global_id++; 
         }

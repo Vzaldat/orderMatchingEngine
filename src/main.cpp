@@ -17,8 +17,8 @@ int main(){
         if (input == "exit") break;
 
         if (input.rfind("new", 0) == 0){
-            Order order(0, OrderType::LIMIT, OrderSide::BUY, 0.0, 0);
-            if (InputHandler::parse(input, order, orderId)){
+            Order order(OrderType::LIMIT, OrderSide::BUY, 0.0, 0);
+            if (InputHandler::parse(input, order)){
                 // queue.push(order);
                 // std::cout << "Order Accepted: ID = "<<order.id<<", Side = " 
                 // << (order.side == OrderSide::BUY ? "BUY" : "SELL") 

@@ -7,7 +7,7 @@
 
 class InputHandler {
     public:
-        static bool parse(const std::string &input, Order& Orderout, int orderIdCounter){
+        static bool parse(const std::string &input, Order& Orderout){
             std::istringstream iss(input);
             std::string cmd, typeStr, sideStr;
             double price = 0.0;
@@ -30,7 +30,7 @@ class InputHandler {
             OrderType type = (typeStr == "LIMIT") ? OrderType::LIMIT : OrderType::MARKET;
             OrderSide side = (sideStr == "BUY") ? OrderSide::BUY : OrderSide::SELL;
 
-            Orderout = Order(orderIdCounter, type, side, price, quantity);
+            Orderout = Order(type, side, price, quantity);
             return true;
         }
 };

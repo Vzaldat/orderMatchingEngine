@@ -8,8 +8,8 @@ cmake ..
 
 cmake --build .
 
-make 
+# make 
 
-./OrderMatchingEngine
+# ./OrderMatchingEngine
 
 ./tests > test_output.txt
