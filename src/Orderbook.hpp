@@ -5,6 +5,7 @@
 #include <deque>
 #include <iostream>
 #include "Order.hpp"
+#include "TradeLogger.hpp"
 
 class OrderBook{
     public:
@@ -20,6 +21,7 @@ class OrderBook{
     private:
         std::map<double, std::deque<Order>> bids_;
         std::map<double, std::deque<Order>> asks_;
+        TradeLogger logger_{"trades.log"};
 
         void match(Order incoming, std::map<double, std::deque<Order>> &oppositeBook, std::map<double, std::deque<Order>> &ownBook, OrderSide oppSide){
             // auto it = (incoming.side == OrderSide::BUY) ? oppositeBook.begin() : std::map<double, std::deque<Order>>::reverse_iterator();
@@ -35,9 +37,9 @@ class OrderBook{
                         Order &top = queue.front();
                         int tradeQuantity = std::min(incoming.quantity, top.quantity);
     
-                        std::cout << "[TRADE] " << tradeQuantity << " @ " << top.price << " | Buy ID: "
-                         << (incoming.side == OrderSide::BUY ? incoming.id : top.id) << " , Sell ID: " <<( incoming.side == OrderSide::SELL ? incoming.id : top.id)<<"\n";
-                        
+                        // std::cout << "[TRADE] " << tradeQuantity << " @ " << top.price << " | Buy ID: "
+                        //  << (incoming.side == OrderSide::BUY ? incoming.id : top.id) << " , Sell ID: " <<( incoming.side == OrderSide::SELL ? incoming.id : top.id)<<"\n";
+                        logger_.log(tradeQuantity, top.price, (incoming.side == OrderSide::BUY ? incoming.id : top.id), (incoming.side == OrderSide::SELL ? incoming.id:top.id));
                         
                         top.quantity -= tradeQuantity;
                         incoming.quantity -= tradeQuantity;
