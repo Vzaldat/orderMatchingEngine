@@ -10,6 +10,6 @@ cmake --build .
 
 # make 
 
-# ./OrderMatchingEngine
+./OrderMatchingEngine
 
-./tests > test_output.txt
+# ./tests > test_output.txt

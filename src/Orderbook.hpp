@@ -17,7 +17,32 @@ class OrderBook{
                 match(order, bids_, asks_, OrderSide::BUY);
             }
         }
-    
+        void printOrderBook(){
+            std::cout << "\n CURRENT ORDER BOOK:\n";
+
+            std::cout<<"\nASKS (SELL):\n";
+            for(const auto& [price, orders] : asks_) {
+                int totalQuantity = 0;
+                for (const auto& o:orders) totalQuantity += o.quantity;
+                std::cout<<" "<<price<<" : "<<totalQuantity<<"\n";
+            }
+            
+            std::cout<<"\nBIDS (BUY):\n";
+            for(auto it = bids_.rbegin(); it!= bids_.rend(); ++it) {
+                int totalQuantity = 0;
+                for(const auto &o : it->second) totalQuantity += o.quantity;
+                std::cout << " " << it->first << " : "<<totalQuantity <<"\n";
+            }
+
+            std::cout<<"-------------------------\n\n";
+        }
+        std::map<double, std::deque<Order>> getBids(){
+            return bids_;
+        }
+        std::map<double, std::deque<Order>> getAsks(){
+            return asks_;
+        }
+        const TradeLogger& getLogger() const {return logger_;}
     private:
         std::map<double, std::deque<Order>> bids_;
         std::map<double, std::deque<Order>> asks_;
