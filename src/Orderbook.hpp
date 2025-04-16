@@ -6,16 +6,23 @@
 #include <iostream>
 #include "Order.hpp"
 #include "TradeLogger.hpp"
+#include <chrono>
 
 class OrderBook{
     public:
         void addOrder(const Order& order) {
+            auto start = std::chrono::high_resolution_clock::now();
+
             if(order.side == OrderSide::BUY){
                 match(order, asks_, bids_, OrderSide::SELL);
             }
             else{
                 match(order, bids_, asks_, OrderSide::BUY);
             }
+
+            auto end = std::chrono::high_resolution_clock::now();
+            auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
+            std::cout << "[Latency] Order ID " << order.id << " matched in " << duration << " microseconds\n";
         }
         void printOrderBook(){
             std::cout << "\n CURRENT ORDER BOOK:\n";

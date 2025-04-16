@@ -13,3 +13,6 @@ cmake --build .
 ./OrderMatchingEngine
 
 # ./tests > test_output.txt
+
+gprof ./OrderMatchingEngine gmon.out > profile_report.txt
+# less profile_report.txt

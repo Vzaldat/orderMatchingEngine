@@ -8,5 +8,9 @@ The Engine takes in the order which has following parameters -
     5. Quantity
     6. Time of order 
 
-The engine takes in multiple orders and matches them with the counter parts - Buy orders of a certain type go to sell orders of the same type etc.# orderMatchingEngine
-# orderMatchingEngine
+The engine takes in multiple orders and matches them with the counter parts - Buy orders of a certain type go to sell orders of the same type etc.
+
+There is a OrderBook class that handles the asks(sell) and bids(buys) and matches the asks to bids
+
+There are multiple tests in test folder and maintaining a small UI from ncurses to place an order.
+

@@ -46,9 +46,10 @@ int main(){
     // }
     OrderBook book;
     int OrderId = 1;
-
+    int ordersProcessed = 0;
     NCursesUI::init();
     NCursesUI::setupColors();
+    auto startTime = std::chrono::high_resolution_clock::now();
 
     bool running = true;
     while(running) {
@@ -70,6 +71,15 @@ int main(){
                 Order order(OrderType::LIMIT, OrderSide::BUY, 0.0, 0);
                 if(InputHandler::parse(input, order)){
                     book.addOrder(order);
+                    ordersProcessed++;
+                    auto now = std::chrono::high_resolution_clock::now();
+                    auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(now-startTime).count();
+
+                    if(elapsed >= 1){
+                        std::cout << " [Throughput] " << ordersProcessed << " orders/sec\n";
+                        ordersProcessed = 0;
+                        startTime = now;
+                    }
                 }
                 break;
             }
