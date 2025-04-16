@@ -10,7 +10,7 @@ cmake --build .
 
 # make 
 
-./OrderMatchingEngine
+./OrderMatchingEngine > latencyOut.text
 
 # ./tests > test_output.txt
 

@@ -7,6 +7,8 @@
 #include <string>
 #include "Order.hpp"
 
+extern std::mutex uiMutex;
+
 class NCursesUI {
     public:
         static void init(){
@@ -20,8 +22,9 @@ class NCursesUI {
             endwin();
         }
         static void render(const std::map<double, std::deque<Order>>&bids, const std::map<double, std::deque<Order>>&asks, const std::deque<TradeEvent>& trades){
+            std::lock_guard<std::mutex> lock(uiMutex);
             clear();
-            int row = 1;
+            int row = 2;
             attron(A_BOLD);
             mvprintw(row++, 2, "LIVE ORDER BOOK, Press 'n' to start a new order and 'q' to quit.");
             attroff(A_BOLD);
@@ -49,7 +52,7 @@ class NCursesUI {
             attroff(A_BOLD);
             for (const auto& trade : trades){
                 attron(COLOR_PAIR(3));
-                mvprintw(row++, 4, trade.toString().c_str());
+                mvprintw(row++, 4, "%s", trade.toString().c_str());
                 attroff(COLOR_PAIR(3));
             }
 
